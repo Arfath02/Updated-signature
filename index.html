@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>BIA Textiles - Signature Generator (New Design)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body bgcolor="#ffffff" style="background:#ffffff; font-family:Arial, Helvetica, sans-serif; margin:0; padding:20px;">
+
+  <!-- Page grid -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+    <tr>
+
+      <!-- Left: Form -->
+      <td style="width:320px; vertical-align:top; padding-right:16px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0"
+               style="width:100%; border:1px solid #ededed; background:#f8f8f8; border-radius:8px;">
+          <tr>
+            <td style="padding:16px;">
+              <div style="font-weight:bold; margin-bottom:10px; font-size:15px;">Signature Details</div>
+
+              <form id="form" style="margin:0;">
+                <input id="nameInput" type="text" placeholder="Full Name"
+                  style="width:100%; padding:8px; margin:6px 0; border:0; border-radius:4px; box-sizing:border-box;" />
+
+                <input id="designationInput" type="text" placeholder="Designation"
+                  style="width:100%; padding:8px; margin:6px 0; border:0; border-radius:4px; box-sizing:border-box;" />
+
+                <!-- Phone (user enters the rest after +962; +962 is static) -->
+                <div style="display:flex; gap:6px; align-items:center; margin:6px 0;">
+                  <span style="display:inline-block; padding:8px 10px; background:#fff; border-radius:4px; border:1px solid #e1e1e1; font-size:13px;">+962</span>
+                  <input id="phoneRestInput" type="text" placeholder="77 57 57 401"
+                    style="flex:1; padding:8px; border:0; border-radius:4px; box-sizing:border-box;" />
+                </div>
+
+                <!-- WhatsApp controls -->
+                <div style="display:flex; align-items:center; gap:8px; margin-top:6px; font-size:13px;">
+                  <input id="waSameCheckbox" type="checkbox" checked />
+                  <label for="waSameCheckbox">WhatsApp is same as Phone</label>
+                </div>
+                <!-- If different, enter FULL WhatsApp number with country code -->
+                <input id="whatsappFullInput" type="text" placeholder="WhatsApp (enter FULL number incl. country code if different)"
+                  style="width:100%; padding:8px; margin:6px 0; border:0; border-radius:4px; box-sizing:border-box;" />
+
+                <input id="emailInput" type="text" placeholder="Email ID"
+                  style="width:100%; padding:8px; margin:6px 0; border:0; border-radius:4px; box-sizing:border-box;" />
+
+                <!-- Website & Address are STATIC -->
+
+                <div style="height:8px;"></div>
+
+                <button type="button" onclick="fillForm()"
+                  style="border-radius:12px; width:120px; height:36px; border:1px solid #c6c6c6; background:#ffffff; cursor:pointer;">
+                  Generate
+                </button>
+
+                <button id="copyButton" type="button" onclick="copyToClipboard()"
+                  style="border-radius:12px; width:120px; height:36px; border:1px solid #c6c6c6; background:#ffffff; cursor:pointer; margin-left:8px;">
+                  Copy
+                </button>
+
+              </form>
+            </td>
+          </tr>
+        </table>
+      </td>
+
+      <!-- Right: Signature Preview -->
+      <td style="vertical-align:top;">
+
+        <!-- Signature card -->
+        <table id="signaturewrap" role="presentation" cellpadding="0" cellspacing="0" border="0"
+          style="width:740px; background:#ffffff; border:1px solid #d9d9d9; border-radius:10px; overflow:hidden;">
+          <tr>
+
+            <!-- Logo -->
+            <td style="width:260px; padding:18px 16px; vertical-align:middle; text-align:center;">
+              <img
+                id="sigLogo"
+                src="logo.png"
+                width="190"
+                alt="BIA Textiles"
+                style="display:block; border:0; outline:none; text-decoration:none; margin:0 auto;" />
+            </td>
+
+            <!-- Vertical red divider -->
+            <td style="width:2px; background:#d64b4b; font-size:0; line-height:0;">&nbsp;</td>
+
+            <!-- Details -->
+            <td style="padding:18px; vertical-align:top;">
+
+              <!-- Name -->
+              <div style="font-size:20px; line-height:24px; font-weight:700; color:#000000; margin:0;">
+                <span id="sigName">Varadharajan Ethiraj</span>
+              </div>
+
+              <!-- Title -->
+              <div style="font-size:14px; line-height:18px; color:#333333; margin-top:4px; font-weight:600;">
+                <span id="sigDesignation">Chief Operating Officer</span>
+              </div>
+
+              <div style="height:12px; font-size:12px; line-height:12px;">&nbsp;</div>
+
+              <!-- Single column list -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+                <tr>
+                  <td style="vertical-align:top;">
+
+                    <!-- Phone -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; margin-bottom:10px;">
+                      <tr>
+                        <td style="width:28px; vertical-align:middle; padding-top:2px;">
+                          <img src="call.png" width="20" height="20" alt="Phone" style="display:block; border:0;" />
+                        </td>
+                        <td style="vertical-align:middle; font-size:14px; line-height:20px; color:#111111;">
+                          <a id="sigPhoneLink" href="tel:+962775757401" style="color:#111111; text-decoration:none;">
+                            <span id="sigPhone">+962 77 57 57 401</span>
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- WhatsApp -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; margin-bottom:10px;">
+                      <tr>
+                        <td style="width:28px; vertical-align:middle; padding-top:2px;">
+                          <img
+                            src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 64 64' fill='none'><path fill='%23000000' d='M32 8c-11.9 0-21.6 9.4-21.6 21 0 4.7 1.6 9 4.4 12.6L12 56l14.8-4.5c1.7.5 3.5.7 5.3.7 11.9 0 21.6-9.4 21.6-21S43.9 8 32 8zm0 38.5c-1.7 0-3.4-.2-5-.7l-1-.3-8.8 2.7 2.6-8.3-.6-.8C17 36.3 15.8 33 15.8 29c0-8.9 7.3-16.2 16.2-16.2S48.2 20.1 48.2 29 40.9 46.5 32 46.5z'/><path fill='%23000000' d='M42.9 38.4c-.5 1.5-2.7 2.7-3.9 2.8-1 .1-2 .1-3.3-.2-.7-.2-1.7-.6-2.9-1.2-5.2-2.5-8.5-7.3-8.9-7.8-.3-.4-2.1-2.8-2.1-5.4s1.2-3.9 1.8-4.6c.5-.6 1.2-.7 1.6-.7h1c.3 0 .8-.1 1.3 1 0 0 1.2 3.4 1.5 4.2.1.3.1.7 0 1.1-.2.4-.3.7-.5 1-.2.3-.5.7-.8 1-.2.2-.5.5-.2 1 .3.6 1.5 2.4 3.3 3.9 2.2 1.9 4 2.6 4.6 2.9.5.2.9.2 1.3-.1.4-.3 1.6-1.2 2-1.7.5-.4.8-.3 1.4-.2.5.1 3.4 1.5 4 1.9.5.3.9.5 1 .9.2.3.2 1.5-.3 3z'/></svg>"
+                            width="20" height="20" alt="WhatsApp" style="display:block; border:0;" />
+                        </td>
+                        <td style="vertical-align:middle; font-size:14px; line-height:20px; color:#111111;">
+                          <a id="sigWhatsAppLink" href="https://wa.me/962775757401" style="color:#111111; text-decoration:none;">
+                            <span id="sigWhatsAppText">WhatsApp: +962 77 57 57 401</span>
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Email -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; margin-bottom:10px;">
+                      <tr>
+                        <td style="width:28px; vertical-align:middle; padding-top:2px;">
+                          <img src="Mail.png" width="20" height="20" alt="Email" style="display:block; border:0;" />
+                        </td>
+                        <td style="vertical-align:middle; font-size:14px; line-height:20px; color:#111111;">
+                          <a id="sigEmailLink" href="mailto:Varadharajan.Ethiraj@biatextiles.jo" style="color:#111111; text-decoration:none;">
+                            <span id="sigEmailText">Varadharajan.Ethiraj@biatextiles.jo</span>
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Website (STATIC) -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; margin-bottom:10px;">
+                      <tr>
+                        <td style="width:28px; vertical-align:middle; padding-top:2px;">
+                          <img src="website.png" width="20" height="20" alt="Website" style="display:block; border:0;" />
+                        </td>
+                        <td style="vertical-align:middle; font-size:14px; line-height:20px; color:#111111;">
+                          <a href="https://www.biatextiles.co/" style="color:#050507; text-decoration:underline;">biatextiles.co</a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Address (STATIC) -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; margin-bottom:4px;">
+                      <tr>
+                        <td style="width:28px; vertical-align:middle; padding-top:2px;">
+                          <img src="location.png" width="20" height="20" alt="Location" style="display:block; border:0;" />
+                        </td>
+                        <td style="vertical-align:middle; font-size:14px; line-height:20px; color:#111111;">
+                          Land No 405, Plot 8 Zubaidi,<br />
+                          King Hussein Bin Talal Development Area,<br />
+                          Al‑Mafraq, Jordan, Pincode-25110
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+  <!-- ======= Scripts ======= -->
+<script type="text/javascript">
+  // --- Helpers ---
+  function digitsOnly(str) {
+    return (str || "").replace(/[^\d]/g, "");
+  }
+
+  function formatDisplayPhone(rest) {
+    var cleaned = (rest || "").trim()
+      .replace(/^\+?\s*962\s*/,"")
+      .replace(/\s+/g, " ");
+    return "+962 " + cleaned;
+  }
+
+  function telHrefFromRest(rest) {
+    var d = digitsOnly(rest);
+    if (d.startsWith("962")) d = d.substring(3);
+    return "tel:+962" + d;
+  }
+
+  function waHrefFromFull(fullNumber) {
+    var d = digitsOnly(fullNumber);
+    return "https://wa.me/" + d;
+  }
+
+  // Init WA field toggle
+  (function initWaCheckbox() {
+    var cb = document.getElementById("waSameCheckbox");
+    var waInput = document.getElementById("whatsappFullInput");
+    function sync() {
+      waInput.style.display = cb.checked ? "none" : "block";
+    }
+    if (cb && waInput) {
+      cb.addEventListener("change", sync);
+      sync();
+    }
+  })();
+
+  // Generate
+  function fillForm() {
+    var name = document.getElementById("nameInput").value || "Your Name";
+    var designation = document.getElementById("designationInput").value || "Designation";
+
+    var phoneRest = document.getElementById("phoneRestInput").value || "77 57 57 401";
+    var email = document.getElementById("emailInput").value || "name@biatextiles.jo";
+
+    var waSame = document.getElementById("waSameCheckbox").checked;
+    var waFullInput = document.getElementById("whatsappFullInput").value;
+
+    document.getElementById("sigName").textContent = name;
+    document.getElementById("sigDesignation").textContent = designation;
+
+    var phoneDisplay = formatDisplayPhone(phoneRest);
+    var telHref = telHrefFromRest(phoneRest);
+    document.getElementById("sigPhone").textContent = phoneDisplay;
+
+    var phoneLinkEl = document.getElementById("sigPhoneLink");
+    if (phoneLinkEl) phoneLinkEl.setAttribute("href", telHref);
+
+    document.getElementById("sigEmailText").textContent = email;
+    var emailLinkEl = document.getElementById("sigEmailLink");
+    if (emailLinkEl) emailLinkEl.setAttribute("href", "mailto:" + email);
+
+    var waDisplay, waHref;
+    if (waSame) {
+      waDisplay = phoneDisplay;
+      waHref = "https://wa.me/" + digitsOnly(phoneDisplay);
+    } else {
+      var fullEntered = (waFullInput && waFullInput.trim().length) ? waFullInput.trim() : phoneDisplay;
+      waDisplay = fullEntered;
+      waHref = waHrefFromFull(fullEntered);
+    }
+    document.getElementById("sigWhatsAppText").textContent = "WhatsApp: " + waDisplay;
+    var waLinkEl = document.getElementById("sigWhatsAppLink");
+    if (waLinkEl) waLinkEl.setAttribute("href", waHref);
+  }
+
+  // Copy
+  function copyToClipboard() {
+    var copyBoxElement = document.getElementById('signaturewrap');
+    if (navigator.clipboard && window.ClipboardItem) {
+      var html = copyBoxElement.outerHTML;
+      const blobHtml = new Blob([html], { type: "text/html" });
+      const blobText = new Blob([html], { type: "text/plain" });
+      navigator.clipboard.write([new ClipboardItem({ "text/html": blobHtml, "text/plain": blobText })])
+        .then(function() { alert("Signature copied. Paste into your email signature settings."); })
+        .catch(function() { legacyCopy(copyBoxElement); });
+    } else {
+      legacyCopy(copyBoxElement);
+    }
+  }
+
+  function legacyCopy(node) {
+    var range = document.createRange();
+    range.selectNode(node);
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    try {
+      document.execCommand("copy");
+      selection.removeAllRanges();
+      alert("Signature copied. Paste into your email signature settings.");
+    } catch (err) {
+      selection.removeAllRanges();
+      alert("Copy failed. Please select the signature manually and copy.");
+    }
+  }
+</script>
+
+</body>
+</html>

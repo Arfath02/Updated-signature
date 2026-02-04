@@ -73,21 +73,27 @@
           style="width:600px; background:#ffffff; border:1px solid #d9d9d9; border-radius:10px; overflow:hidden; border-collapse:separate;">
           <tr>
             
+            <!-- Logo -->
             <td style="width:150px; padding:8px; vertical-align:middle; text-align:center;">
-  <img src="logo2.png" style="width:100%; max-width:250px; display:block; margin:0 auto;" 
-       alt="BIA Textiles">
-</td>
-
-            <td style="width:28px; padding:0 8px; vertical-align:top; text-align:center;">
-
-              <img src="https://raw.githubusercontent.com/Arfath02/Updated-signature/main/new%20red%20line.png" width="20" height="210" alt="" style="display:block; border:0; outline:none;" />
+              <img src="logo2.png" style="width:100%; max-width:250px; display:block; margin:0 auto;" 
+                   alt="BIA Textiles">
             </td>
 
-            <!-- Details column (no border-left anymore) -->
-            <td style="vertical-align:top; padding:0;">
+            <!-- Red divider (image auto-height; JS will set pixel height to match details) -->
+            <td style="width:28px; padding:0 8px; vertical-align:top; text-align:center;">
+              <img id="dividerImg"
+                   src="https://github.com/Arfath02/Updated-signature/blob/main/new%20red%20line.png?raw=true"
+                   width="20"
+                   style="display:block; border:0; outline:none; margin:0 auto; height: 14px;;"
+                   alt="" />
+            </td>
+
+            <!-- Details column -->
+            <td id="detailsCell" style="vertical-align:top; padding:0;">
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;">
                 <tr>
-                  <td style="padding:10px 10px 10px 14px; vertical-align:top;">
+                  <!-- Reduced top/bottom padding to shrink total height -->
+                  <td style="padding:6px 10px 6px 14px; vertical-align:top;">
 
                     <!-- Name -->
                     <div style="font-size:18px; line-height:20px; font-weight:700; color:#000000; margin:0;">
@@ -216,7 +222,7 @@
     return "https://wa.me/" + d;
   }
 
-  // Init WA field toggle (hide manual WhatsApp input when "same as phone" is checked)
+  // Toggle WhatsApp input visibility
   (function initWaCheckbox() {
     var cb = document.getElementById("waSameCheckbox");
     var waInput = document.getElementById("whatsappFullInput");
@@ -229,6 +235,34 @@
       sync();
     }
   })();
+
+  // ---- Divider height sync (JS sets exact pixel height for the red line image) ----
+  function setDividerHeight() {
+    var detailsCell = document.getElementById('detailsCell');
+    var dividerImg  = document.getElementById('dividerImg');
+    if (!detailsCell || !dividerImg) return;
+
+    // Compute the outer height of the details column's content area
+    // We measure the row height by using the parent TR of detailsCell.
+    // Fallback to detailsCell offsetHeight if TR isn't found.
+    var row = detailsCell.closest ? detailsCell.closest('tr') : detailsCell.parentNode;
+    var targetH = (row && row.offsetHeight) ? row.offsetHeight : detailsCell.offsetHeight;
+
+    // Apply a small correction if you see 1-2px mismatch; tweak as needed (0..4)
+    var correction = 0;
+
+    // Set explicit pixel height so Outlook preserves it
+    dividerImg.style.height = Math.max(1, targetH - correction) + 'px';
+  }
+
+  // Run on load, after Generate, and on resize
+  window.addEventListener('load', function () {
+    setDividerHeight();
+    // If images load late (logo), re-sync
+    var logo = document.querySelector('img[src*="logo2"]');
+    if (logo) logo.addEventListener('load', setDividerHeight);
+  });
+  window.addEventListener('resize', setDividerHeight);
 
   // Generate
   function fillForm() {
@@ -245,7 +279,7 @@
     document.getElementById("sigName").textContent = name;
     document.getElementById("sigDesignation").textContent = designation;
 
-    // Phone: display with +962, href with digits
+    // Phone
     var phoneDisplay = formatDisplayPhone(phoneRest);
     var telHref = telHrefFromRest(phoneRest);
     document.getElementById("sigPhone").textContent = phoneDisplay;
@@ -257,24 +291,29 @@
     var emailLinkEl = document.getElementById("sigEmailLink");
     if (emailLinkEl) emailLinkEl.setAttribute("href", "mailto:" + email);
 
-    // WhatsApp display & href
+    // WhatsApp
     var waDisplay, waHref;
     if (waSame) {
-      waDisplay = phoneDisplay; // show +962 ...
-      waHref = "https://wa.me/" + digitsOnly(phoneDisplay); // href is digits only
+      waDisplay = phoneDisplay;
+      waHref = "https://wa.me/" + digitsOnly(phoneDisplay);
     } else {
       var fullEntered = (waFullInput && waFullInput.trim().length) ? waFullInput.trim() : phoneDisplay;
-      waDisplay = fullEntered; // show exactly what was entered
-      waHref = waHrefFromFull(fullEntered); // digits only for wa.me
+      waDisplay = fullEntered;
+      waHref = waHrefFromFull(fullEntered);
     }
     document.getElementById("sigWhatsAppText").textContent = "WhatsApp: " + waDisplay;
     var waLinkEl = document.getElementById("sigWhatsAppLink");
     if (waLinkEl) waLinkEl.setAttribute("href", waHref);
+
+    // Recompute divider height after changes
+    setDividerHeight();
   }
 
-  // ===== Copy without border =====
-  // IMPORTANT: We strip ONLY the outer card border; images & inner visuals remain.
+  // ===== Copy (Outlook-safe normalization + ensure divider height is set) =====
   function copyToClipboard() {
+    // Make sure divider height is synced immediately before copying
+    setDividerHeight();
+
     var copyBoxElement = document.getElementById('signaturewrap');
 
     // Clone
@@ -284,15 +323,48 @@
     clone.style.border = "0";
     clone.setAttribute("border", "0");
 
-    // Normalize tables for email clients (Outlook)
-    clone.querySelectorAll('table').forEach(function(t){
-      t.setAttribute('border','0');
-      t.style.borderCollapse = 'separate';
-      t.style.msoTableLspace = '0pt';
-      t.style.msoTableRspace = '0pt';
+    // Normalize tables for email clients (Outlook) to reduce extra spacing
+    clone.querySelectorAll('table, tr, td').forEach(function(el){
+      el.setAttribute('cellpadding','0');
+      el.setAttribute('cellspacing','0');
+      el.setAttribute('border','0');
+      el.style.borderCollapse = 'collapse';
+      el.style.msoTableLspace = '0pt';
+      el.style.msoTableRspace = '0pt';
+      if (!el.style.margin) el.style.margin = '0';
+      // Keep existing padding if defined; otherwise force 0
+      if (!el.style.padding) el.style.padding = '0';
     });
 
-    // Prepare HTML
+    // Convert <div> to <span> to avoid Outlook paragraph spacing
+    clone.querySelectorAll('div').forEach(function(div) {
+      var span = document.createElement("span");
+      span.style.cssText = div.style.cssText || '';
+      span.style.margin = '0';
+      span.innerHTML = div.innerHTML;
+      if (div.parentNode) div.parentNode.replaceChild(span, div);
+    });
+
+    // Links
+    clone.querySelectorAll('a').forEach(function(a) {
+      a.style.color = '#111111';
+      a.style.textDecoration = 'none';
+      a.style.msoPaddingAlt = '0';
+      a.style.margin = '0';
+      if (!a.style.padding) a.style.padding = '0';
+    });
+
+    // Images
+    clone.querySelectorAll('img').forEach(function(img) {
+      img.setAttribute('border', '0');
+      img.style.display = 'block';
+      img.style.outline = 'none';
+      img.style.textDecoration = 'none';
+      img.style.margin = '0';
+      if (!img.style.padding) img.style.padding = '0';
+      img.style.verticalAlign = 'middle';
+    });
+
     var html = clone.outerHTML;
 
     if (navigator.clipboard && window.ClipboardItem) {
@@ -335,4 +407,3 @@
 
 </body>
 </html>
-

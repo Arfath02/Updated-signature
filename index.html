@@ -28,7 +28,7 @@
                 <input id="designationInput" type="text" placeholder="Designation"
                   style="width:100%; padding:8px; margin:6px 0; border:0; border-radius:4px; box-sizing:border-box;" />
 
-                <!-- Phone (user enters the rest after +962; +962 is static) -->
+                <!-- Phone (+962 fixed) -->
                 <div style="display:flex; gap:6px; align-items:center; margin:6px 0;">
                   <span style="display:inline-block; padding:8px 10px; background:#fff; border-radius:4px; border:1px solid #e1e1e1; font-size:13px;">+962</span>
                   <input id="phoneRestInput" type="text" placeholder="77 57 57 401"
@@ -75,16 +75,15 @@
             
             <!-- Logo -->
             <td style="width:150px; padding:8px; vertical-align:middle; text-align:center;">
-              <img src="logo2.png" style="width:100%; max-width:250px; display:block; margin:0 auto;" 
-                   alt="BIA Textiles">
+              <img src="logo2.png" style="width:100%; max-width:250px; display:block; margin:0 auto;" alt="BIA Textiles" />
             </td>
 
-            <!-- Red divider (image auto-height; JS will set pixel height to match details) -->
+            <!-- Red divider (auto height via JS; pixel height set before copy) -->
             <td style="width:28px; padding:0 8px; vertical-align:top; text-align:center;">
               <img id="dividerImg"
                    src="https://github.com/Arfath02/Updated-signature/blob/main/new%20red%20line.png?raw=true"
                    width="20"
-                   style="display:block; border:0; outline:none; margin:0 auto; height: 14px;;"
+                   style="display:block; border:0; outline:none; margin:0 auto; height: 12px;;"
                    alt="" />
             </td>
 
@@ -95,13 +94,13 @@
                   <!-- Reduced top/bottom padding to shrink total height -->
                   <td style="padding:6px 10px 6px 14px; vertical-align:top;">
 
-                    <!-- Name -->
-                    <div style="font-size:18px; line-height:20px; font-weight:700; color:#000000; margin:0;">
+                    <!-- Name (force own line) -->
+                    <div style="font-size:18px; line-height:20px; font-weight:700; color:#000000; margin:0; display:block;">
                       <span id="sigName">Varadharajan Ethiraj</span>
                     </div>
 
-                    <!-- Title -->
-                    <div style="font-size:13px; line-height:17px; color:#333333; font-weight:600; margin:0;">
+                    <!-- Designation (force next line) -->
+                    <div style="font-size:13px; line-height:17px; color:#333333; font-weight:600; margin:0; display:block;">
                       <span id="sigDesignation">Chief Operating Officer</span>
                     </div>
 
@@ -236,29 +235,26 @@
     }
   })();
 
-  // ---- Divider height sync (JS sets exact pixel height for the red line image) ----
+  // ---- Divider height sync (set exact pixel height for the red line image) ----
   function setDividerHeight() {
     var detailsCell = document.getElementById('detailsCell');
     var dividerImg  = document.getElementById('dividerImg');
     if (!detailsCell || !dividerImg) return;
 
-    // Compute the outer height of the details column's content area
-    // We measure the row height by using the parent TR of detailsCell.
-    // Fallback to detailsCell offsetHeight if TR isn't found.
+    // Measure the table row that contains both divider and details (more reliable)
     var row = detailsCell.closest ? detailsCell.closest('tr') : detailsCell.parentNode;
     var targetH = (row && row.offsetHeight) ? row.offsetHeight : detailsCell.offsetHeight;
 
-    // Apply a small correction if you see 1-2px mismatch; tweak as needed (0..4)
-    var correction = 0;
+    // Fine-tune if you notice 1-2px off due to borders/anti-aliasing
+    var correction = 0; // try 1 or 2 if needed
 
-    // Set explicit pixel height so Outlook preserves it
     dividerImg.style.height = Math.max(1, targetH - correction) + 'px';
   }
 
-  // Run on load, after Generate, and on resize
+  // Run on load and when window resizes
   window.addEventListener('load', function () {
     setDividerHeight();
-    // If images load late (logo), re-sync
+    // If logo loads later and changes height, re-sync
     var logo = document.querySelector('img[src*="logo2"]');
     if (logo) logo.addEventListener('load', setDividerHeight);
   });
@@ -311,7 +307,7 @@
 
   // ===== Copy (Outlook-safe normalization + ensure divider height is set) =====
   function copyToClipboard() {
-    // Make sure divider height is synced immediately before copying
+    // Ensure divider height is synced immediately before copying
     setDividerHeight();
 
     var copyBoxElement = document.getElementById('signaturewrap');
@@ -323,7 +319,7 @@
     clone.style.border = "0";
     clone.setAttribute("border", "0");
 
-    // Normalize tables for email clients (Outlook) to reduce extra spacing
+    // Normalize tables for email clients (Outlook)
     clone.querySelectorAll('table, tr, td').forEach(function(el){
       el.setAttribute('cellpadding','0');
       el.setAttribute('cellspacing','0');
@@ -332,11 +328,10 @@
       el.style.msoTableLspace = '0pt';
       el.style.msoTableRspace = '0pt';
       if (!el.style.margin) el.style.margin = '0';
-      // Keep existing padding if defined; otherwise force 0
       if (!el.style.padding) el.style.padding = '0';
     });
 
-    // Convert <div> to <span> to avoid Outlook paragraph spacing
+    // Convert <div> to <span> within the signature to prevent Outlook paragraph spacing
     clone.querySelectorAll('div').forEach(function(div) {
       var span = document.createElement("span");
       span.style.cssText = div.style.cssText || '';

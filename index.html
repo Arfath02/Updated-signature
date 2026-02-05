@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -71,11 +70,15 @@
 
         <!-- Signature card (rounded) -->
         <table id="signaturewrap" role="presentation" cellpadding="0" cellspacing="0" border="0"
-          style="width:600px; background:#ffffff; border:1px solid #d9d9d9; border-radius:10px; overflow:hidden; border-collapse:separate;">
+          style="/* was width:600px; */ 
+                 width:auto;                /* shrink-wrap around content */
+                 display:inline-table;      /* ensures hugging content width */
+                 background:#ffffff; border:1px solid #d9d9d9; border-radius:10px; 
+                 overflow:hidden; border-collapse:separate;">
           <tr>
             
-            <!-- Logo -->
-            <td style="width:150px; padding:8px; vertical-align:middle; text-align:center;">
+            <!-- Logo (reduced bottom padding; align top to avoid forcing row height) -->
+            <td style="width:150px; padding:4px 8px 0 8px; vertical-align:center; text-align:center;">
               <img src="logo2.png" style="width:100%; max-width:250px; display:block; margin:0 auto;" alt="BIA Textiles" />
             </td>
 
@@ -84,7 +87,7 @@
               <img id="dividerImg"
                    src="https://github.com/Arfath02/Updated-signature/blob/main/new%20red%20line.png?raw=true"
                    width="20"
-                   style="display:block; border:0; outline:none; margin:0 auto; height: 12px;"
+                   style="display:block; border:0; outline:none; margin:0 auto; height: 28px;"
                    alt="" />
             </td>
 
@@ -92,8 +95,8 @@
             <td id="detailsCell" style="vertical-align:top; padding:0;">
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;">
                 <tr>
-                  <!-- Reduced top/bottom padding to shrink total height -->
-                  <td style="padding:6px 10px 6px 14px; vertical-align:top;">
+                  <!-- Tighter top/bottom padding only at container edge (content size unchanged) -->
+                  <td style="padding:4px 10px 0 10px; vertical-align:top;">
 
                     <!-- Name (force own line) -->
                     <div style="font-size:18px; line-height:20px; font-weight:700; color:#000000; margin:0; display:block;">
@@ -101,7 +104,7 @@
                     </div>
 
                     <!-- Designation (force next line) -->
-                    <div style="font-size:13px; line-height:17px; color:#333333; font-weight:600; margin:0; display:block;">
+                    <div style="font-size:13px; line-height:17px; color:#333333; font-weight:600; margin:2px 0 0 0; display:block;">
                       <span id="sigDesignation">Chief Operating Officer</span>
                     </div>
 
@@ -128,7 +131,8 @@
                           <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; padding:0;">
                             <tr>
                               <td style="width:26px; vertical-align:middle; padding:0;">
-                                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 64 64' fill='none'><path fill='%23000000' d='M32 8c-11.9 0-21.6 9.4-21.6 21 0 4.7 1.6 9 4.4 12.6L12 56l14.8-4.5c1.7.5 3.5.7 5.3.7 11.9 0 21.6-9.4 21.6-21S43.9 8 32 8zm0 38.5c-1.7 0-3.4-.2-5-.7l-1-.3-8.8 2.7 2.6-8.3-.6-.8C17 36.3 15.8 33 15.8 29c0-8.9 7.3-16.2 16.2-16.2S48.2 20.1 48.2 29 40.9 46.5 32 46.5z'/><path fill='%23000000' d='M42.9 38.4c-.5 1.5-2.7 2.7-3.9 2.8-1 .1-2 .1-3.3-.2-.7-.2-1.7-.6-2.9-1.2-5.2-2.5-8.5-7.3-8.9-7.8-.3-.4-2.1-2.8-2.1-5.4s1.2-3.9 1.8-4.6c.5-.6 1.2-.7 1.6-.7h1c.3 0 .8-.1 1.3 1 0 0 1.2 3.4 1.5 4.2.1.3.1.7 0 1.1-.2.4-.3.7-.5 1-.2.3-.5.7-.8 1-.2.2-.5.5-.2 1 .3.6 1.5 2.4 3.3 3.9 2.2 1.9 4 2.6 4.6 2.9.5.2.9.2 1.3-.1.4-.3 1.6-1.2 2-1.7.5-.4.8-.3 1.4-.2.5.1 3.4 1.5 4 1.9.5.3.9.5 1 .9.2.3.2 1.5-.3 3z'/></svg>" width="18" height="18" alt="WhatsApp" style="display:block; margin:0; border:0;" />
+                                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 64 64' fill='none'><path fill='%23000000' d='M32 8c-11.9 0-21.6 9.4-21.6 21 0 4.7 1.6 9 4.4 12.6L12 56l14.8-4.5c1.7.5 3.5.7 5.3.7 11.9 0 21.6-9.4 21.6-21S43.9 8 32 8zm0 38.5c-1.7 0-3.4-.2-5-.7l-1-.3-8.8 2.7 2.6-8.3-.6-.8C17 36.3 15.8 33 15.8 29c0-8.9 7.3-16.2 16.2-16.2S48.2 20.1 48.2 29 40.9 46.5 32 46.5z'/><path fill='%23000000' d='M42.9 38.4c-.5 1.5-2.7 2.7-3.9 2.8-1 .1-2 .1-3.3-.2-.7-.2-1.7-.6-2.9-1.2-5.2-2.5-8.5-7.3-8.9-7.8-.3-.4-2.1-2.8-2.1-5.4s1.2-3.9 1.8-4.6c.5-.6 1.2-.7 1.6-.7h1c.3 0 .8-.1 1.3 1 0 0 1.2 3.4 1.5 4.2.1.3.1.7 0 1.1-.2.4-.3.7-.5 1-.2.3-.5.7-.8 1-.2.2-.5.5-.2 1 .3.6 1.5 2.4 3.3 3.9 2.2 1.9 4 2.6 4.6 2.9.5.2.9.2 1.3-.1.4-.3 1.6-1.2 2-1.7.5-.4.8-.3 1.4-.2.5.1 3.4 1.5 4 1.9.5.3.9.5 1 .9.2.3.2 1.5-.3 3z'/></svg>" 
+                                     width="18" height="18" alt="WhatsApp" style="display:block; margin:0; border:0;" />
                               </td>
                               <td style="vertical-align:middle; padding:0 0 4px 0; font-size:13px; line-height:17px; color:#111111;">
                                 <a id="sigWhatsAppLink" href="https://wa.me/962775757401" style="color:#111111; text-decoration:none;">
@@ -246,8 +250,7 @@
     var targetH = (row && row.offsetHeight) ? row.offsetHeight : detailsCell.offsetHeight;
 
     // Fine-tune if you notice 1-2px off due to borders/anti-aliasing
-    var correction = 2; // trim tiny micro gaps top/bottom
-
+    var correction = 6; // try 4..8 if you see a tiny tail
     dividerImg.style.height = Math.max(1, targetH - correction) + 'px';
   }
 
@@ -290,12 +293,12 @@
     // WhatsApp
     var waDisplay, waHref;
     if (waSame) {
-      waDisplay = phoneDisplay;
-      waHref = "https://wa.me/" + digitsOnly(phoneDisplay);
+      waDisplay = phoneDisplay; // show +962 ...
+      waHref = "https://wa.me/" + digitsOnly(phoneDisplay); // href is digits only
     } else {
       var fullEntered = (waFullInput && waFullInput.trim().length) ? waFullInput.trim() : phoneDisplay;
-      waDisplay = fullEntered;
-      waHref = waHrefFromFull(fullEntered);
+      waDisplay = fullEntered; // show exactly what was entered
+      waHref = waHrefFromFull(fullEntered); // digits only for wa.me
     }
     document.getElementById("sigWhatsAppText").textContent = "WhatsApp: " + waDisplay;
     var waLinkEl = document.getElementById("sigWhatsAppLink");

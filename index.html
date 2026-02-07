@@ -5,6 +5,26 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>BIA Textiles - Signature Generator (New Design)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Mobile styles -->
+  <style type="text/css">
+    /* Basic hygiene */
+    img { border:0; outline:none; text-decoration:none; display:block; }
+    a   { text-decoration:none; }
+
+    /* Mobile (phones ≤480px): stack columns and hide the image divider. 
+       Show a CSS border-left on the details column so the red line is always visible. */
+    @media only screen and (max-width:480px){
+      .sig-table  { width:100% !important; }
+      .stack      { display:block !important; width:100% !important; }
+      .logo-cell  { padding:8px 8px 0 8px !important; }
+      .divider-cell { display:none !important; }
+      .details-cell { 
+        padding:8px 10px 0 10px !important; 
+        border-left:4px solid #d40000 !important; 
+      }
+    }
+  </style>
 </head>
 
 <body bgcolor="#ffffff" style="background:#ffffff; font-family:Arial, Helvetica, sans-serif; margin:0; padding:20px;">
@@ -14,7 +34,7 @@
     <tr>
 
       <!-- Left: Form -->
-      <td style="width:320px; vertical-align:top; padding-right:16px;">
+      <td class="stack" style="width:320px; vertical-align:top; padding-right:16px;">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0"
                style="width:100%; border:1px solid #ededed; background:#f8f8f8; border-radius:8px;">
           <tr>
@@ -66,60 +86,56 @@
       </td>
 
       <!-- Right: Signature Preview -->
-      <td style="vertical-align:top;">
+      <td class="stack" style="vertical-align:top;">
 
-        <!-- Signature card (rounded) -->
-        <table id="signaturewrap" role="presentation" cellpadding="0" cellspacing="0" border="0"
-          style="/* was width:600px; */ 
-                 width:auto;                /* shrink-wrap around content */
-                 display:inline-table;      /* ensures hugging content width */
-                 background:#ffffff; border:1px solid #d9d9d9; border-radius:10px; 
-                 overflow:hidden; border-collapse:separate;">
+        <!-- Signature card (rounded; hugs content) -->
+        <table id="signaturewrap" class="sig-table" role="presentation" cellpadding="0" cellspacing="0" border="0"
+          style="width:auto; display:inline-table; background:#ffffff; border:1px solid #d9d9d9; border-radius:10px; overflow:hidden; border-collapse:separate;">
           <tr>
             
-            <!-- Logo (reduced bottom padding; align top to avoid forcing row height) -->
-            <td style="width:150px; padding:4px 8px 0 8px; vertical-align:center; text-align:center;">
-              <img src="logo2.png" style="width:100%; max-width:250px; display:block; margin:0 auto;" alt="BIA Textiles" />
+            <!-- Logo (reduced right padding; top aligned) -->
+            <td class="logo-cell" style="width:150px; padding:4px 4px 0 8px; vertical-align:center; text-align:center; background:#ffffff;">
+              <img src="logo2.png" style="width:100%; max-width:250px; display:block; margin:0 auto; background:#ffffff;" alt="BIA Textiles" />
             </td>
 
-            <!-- Red divider (tight column, zero padding) -->
-            <td id="redLineCell" style="width:14px; padding:0; margin:0; vertical-align:top; text-align:center;">
+            <!-- Divider (IMAGE on desktop; hidden on phones by media query) -->
+            <td class="divider-cell" id="redLineCell"
+                style="width:8px; padding:0; margin:0; vertical-align:top; background:#ffffff; line-height:0; font-size:0;">
               <img id="dividerImg"
-                   src="https://github.com/Arfath02/Updated-signature/blob/main/new%20red%20line.png?raw=true"
-                   width="20"
-                   style="display:block; border:0; outline:none; margin:0 auto; height: 28px;"
+                   src="new red line.png"
+                   width="24"
+                   style="display:block; border:0; outline:none; margin:0; height: 12px; background:#ffffff;"
                    alt="" />
             </td>
 
-            <!-- Details column -->
-            <td id="detailsCell" style="vertical-align:top; padding:0;">
-              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;">
+            <!-- Details column (white bg; media query adds border-left on phones) -->
+            <td id="detailsCell" class="details-cell" style="vertical-align:top; padding:0; background:#ffffff;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate; background:#ffffff;">
                 <tr>
-                  <!-- Tighter top/bottom padding only at container edge (content size unchanged) -->
-                  <td style="padding:4px 10px 0 10px; vertical-align:top;">
+                  <td style="padding:4px 10px 0 10px; vertical-align:top; background:#ffffff;">
 
-                    <!-- Name (force own line) -->
-                    <div style="font-size:18px; line-height:20px; font-weight:700; color:#000000; margin:0; display:block;">
+                    <!-- Name -->
+                    <div style="font-size:18px; line-height:20px; font-weight:700; color:#000000; margin:0; display:block; background:#ffffff;">
                       <span id="sigName">Alex John</span>
                     </div>
 
-                    <!-- Designation (force next line) -->
-                    <div style="font-size:13px; line-height:17px; color:#333333; font-weight:600; margin:2px 0 0 0; display:block;">
+                    <!-- Designation -->
+                    <div style="font-size:13px; line-height:17px; color:#333333; font-weight:600; margin:2px 0 0 0; display:block; background:#ffffff;">
                       <span id="sigDesignation">Designation</span>
                     </div>
 
                     <!-- Contact list -->
-                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; border-collapse:collapse; margin-top:6px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; border-collapse:collapse; margin-top:6px; background:#ffffff;">
                       <tr>
-                        <td style="vertical-align:top; padding:0;">
+                        <td style="vertical-align:top; padding:0; background:#ffffff;">
 
                           <!-- Phone -->
-                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; padding:0;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; padding:0; background:#ffffff;">
                             <tr>
-                              <td style="width:26px; vertical-align:middle; padding:0;">
-                                <img src="call.png" width="18" height="18" alt="Phone" style="display:block; border:0; outline:none;" />
+                              <td style="width:26px; vertical-align:middle; padding:0; background:#ffffff;">
+                                <img src="call.png" width="18" height="18" alt="Phone" style="display:block; border:0; outline:none; background:#ffffff;" />
                               </td>
-                              <td style="vertical-align:middle; padding:0 0 4px 0; font-size:13px; line-height:17px; color:#111111;">
+                              <td style="vertical-align:middle; padding:0 0 4px 0; font-size:13px; line-height:17px; color:#111111; background:#ffffff;">
                                 <a id="sigPhoneLink" href="tel:+962776655443" style="color:#111111; text-decoration:none;">
                                   <span id="sigPhone" style="word-spacing:2px; letter-spacing:0.2px;">+962 776655443</span>
                                 </a>
@@ -128,13 +144,13 @@
                           </table>
 
                           <!-- WhatsApp -->
-                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; padding:0;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; padding:0; background:#ffffff;">
                             <tr>
-                              <td style="width:26px; vertical-align:middle; padding:0;">
+                              <td style="width:26px; vertical-align:middle; padding:0; background:#ffffff;">
                                 <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 64 64' fill='none'><path fill='%23000000' d='M32 8c-11.9 0-21.6 9.4-21.6 21 0 4.7 1.6 9 4.4 12.6L12 56l14.8-4.5c1.7.5 3.5.7 5.3.7 11.9 0 21.6-9.4 21.6-21S43.9 8 32 8zm0 38.5c-1.7 0-3.4-.2-5-.7l-1-.3-8.8 2.7 2.6-8.3-.6-.8C17 36.3 15.8 33 15.8 29c0-8.9 7.3-16.2 16.2-16.2S48.2 20.1 48.2 29 40.9 46.5 32 46.5z'/><path fill='%23000000' d='M42.9 38.4c-.5 1.5-2.7 2.7-3.9 2.8-1 .1-2 .1-3.3-.2-.7-.2-1.7-.6-2.9-1.2-5.2-2.5-8.5-7.3-8.9-7.8-.3-.4-2.1-2.8-2.1-5.4s1.2-3.9 1.8-4.6c.5-.6 1.2-.7 1.6-.7h1c.3 0 .8-.1 1.3 1 0 0 1.2 3.4 1.5 4.2.1.3.1.7 0 1.1-.2.4-.3.7-.5 1-.2.3-.5.7-.8 1-.2.2-.5.5-.2 1 .3.6 1.5 2.4 3.3 3.9 2.2 1.9 4 2.6 4.6 2.9.5.2.9.2 1.3-.1.4-.3 1.6-1.2 2-1.7.5-.4.8-.3 1.4-.2.5.1 3.4 1.5 4 1.9.5.3.9.5 1 .9.2.3.2 1.5-.3 3z'/></svg>" 
-                                     width="18" height="18" alt="WhatsApp" style="display:block; margin:0; border:0;" />
+                                     width="18" height="18" alt="WhatsApp" style="display:block; margin:0; border:0; background:#ffffff;" />
                               </td>
-                              <td style="vertical-align:middle; padding:0 0 4px 0; font-size:13px; line-height:17px; color:#111111;">
+                              <td style="vertical-align:middle; padding:0 0 4px 0; font-size:13px; line-height:17px; color:#111111; background:#ffffff;">
                                 <a id="sigWhatsAppLink" href="https://wa.me/962776655443" style="color:#111111; text-decoration:none;">
                                   <span id="sigWhatsAppText" style="word-spacing:2px; letter-spacing:0.2px;">WhatsApp: +962 776655443</span>
                                 </a>
@@ -143,12 +159,12 @@
                           </table>
 
                           <!-- Email -->
-                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; background:#ffffff;">
                             <tr>
-                              <td style="width:26px; vertical-align:middle; padding:0;">
-                                <img src="Mail.png" width="18" height="18" alt="Email" style="display:block; border:0; outline:none;" />
+                              <td style="width:26px; vertical-align:middle; padding:0; background:#ffffff;">
+                                <img src="Mail.png" width="18" height="18" alt="Email" style="display:block; border:0; outline:none; background:#ffffff;" />
                               </td>
-                              <td style="vertical-align:middle; padding:0 0 4px 0; font-size:13px; line-height:17px; color:#111111;">
+                              <td style="vertical-align:middle; padding:0 0 4px 0; font-size:13px; line-height:17px; color:#111111; background:#ffffff;">
                                 <a id="sigEmailLink" href="mailto:alex.john@biatextiles.co" style="color:#111111; text-decoration:none;">
                                   <span id="sigEmailText" style="word-spacing:1px; letter-spacing:0.2px;">alex.john@biatextiles.co</span>
                                 </a>
@@ -156,27 +172,25 @@
                             </tr>
                           </table>
 
-                          <!-- Website (STATIC) -->
-                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+                          <!-- Website -->
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; background:#ffffff;">
                             <tr>
-                              <td style="width:26px; vertical-align:middle; padding:0;">
-                                <img src="website.png" width="18" height="18" alt="Website" style="display:block; border:0; outline:none;" />
+                              <td style="width:26px; vertical-align:middle; padding:0; background:#ffffff;">
+                                <img src="website.png" width="18" height="18" alt="Website" style="display:block; border:0; outline:none; background:#ffffff;" />
                               </td>
-                              <td style="vertical-align:middle; padding:0 0 4px 0; font-size:13px; line-height:17px; color:#111111;">
-                                <!-- <a href="https://www.biatextiles.co/" style="color:#050507; text-decoration:underline;"> -->
-                                  <span style="word-spacing:2px; letter-spacing:0.2px;">biatextiles.com</span>
-                                </a>
+                              <td style="vertical-align:middle; padding:0 0 4px 0; font-size:13px; line-height:17px; color:#111111; background:#ffffff;">
+                                <span style="word-spacing:2px; letter-spacing:0.2px;">biatextiles.com</span>
                               </td>
                             </tr>
                           </table>
 
-                          <!-- Location (STATIC) -->
-                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+                          <!-- Location -->
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%; background:#ffffff;">
                             <tr>
-                              <td style="width:26px; vertical-align:top; padding:0;">
-                                <img src="location.png" width="18" height="18" alt="Location" style="display:block; border:0; outline:none;" />
+                              <td style="width:26px; vertical-align:top; padding:0; background:#ffffff;">
+                                <img src="location.png" width="18" height="18" alt="Location" style="display:block; border:0; outline:none; background:#ffffff;" />
                               </td>
-                              <td style="vertical-align:top; padding:0; font-size:13px; line-height:17px; color:#111111; word-spacing:2px; letter-spacing:0.2px;">
+                              <td style="vertical-align:top; padding:0; font-size:13px; line-height:17px; color:#111111; word-spacing:2px; letter-spacing:0.2px; background:#ffffff;">
                                 Land No 405, Plot 8 Zubaidi,<br />
                                 King Hussein Bin Talal Development Area,<br />
                                 Al‑Mafraq, Jordan
@@ -225,39 +239,23 @@
     return "https://wa.me/" + d;
   }
 
-  // Toggle WhatsApp input visibility
-  (function initWaCheckbox() {
-    var cb = document.getElementById("waSameCheckbox");
-    var waInput = document.getElementById("whatsappFullInput");
-    function sync() {
-      if (!waInput || !cb) return;
-      waInput.style.display = cb.checked ? "none" : "block";
-    }
-    if (cb && waInput) {
-      cb.addEventListener("change", sync);
-      sync();
-    }
-  })();
-
-  // ---- Divider height sync (set exact pixel height for the red line image) ----
+  // Divider height sync for the IMAGE (desktop) before copy/paste.
+  // Phones will hide the image divider (media query) and use border-left instead.
   function setDividerHeight() {
     var detailsCell = document.getElementById('detailsCell');
     var dividerImg  = document.getElementById('dividerImg');
     if (!detailsCell || !dividerImg) return;
 
-    // Measure the table row that contains both divider and details (more reliable)
     var row = detailsCell.closest ? detailsCell.closest('tr') : detailsCell.parentNode;
     var targetH = (row && row.offsetHeight) ? row.offsetHeight : detailsCell.offsetHeight;
 
-    // Fine-tune if you notice 1-2px off due to borders/anti-aliasing
-    var correction = 6; // try 4..8 if you see a tiny tail
+    var correction = 6; // trim micro gaps if anti-aliasing leaves a 1–2px tail
     dividerImg.style.height = Math.max(1, targetH - correction) + 'px';
   }
 
-  // Run on load and when window resizes
+  // Init
   window.addEventListener('load', function () {
     setDividerHeight();
-    // If logo loads later and changes height, re-sync
     var logo = document.querySelector('img[src*="logo2"]');
     if (logo) logo.addEventListener('load', setDividerHeight);
   });
@@ -268,7 +266,7 @@
     var name = document.getElementById("nameInput").value || "Your Name";
     var designation = document.getElementById("designationInput").value || "Designation";
 
-    var phoneRest = document.getElementById("phoneRestInput").value || "77 57 57 401";
+    var phoneRest = document.getElementById("phoneRestInput").value || "776655443";
     var email = document.getElementById("emailInput").value || "name@biatextiles.jo";
 
     var waSame = document.getElementById("waSameCheckbox").checked;
@@ -280,27 +278,28 @@
 
     // Phone
     var phoneDisplay = formatDisplayPhone(phoneRest);
-    var telHref = telHrefFromRest(phoneRest);
     document.getElementById("sigPhone").textContent = phoneDisplay;
     var phoneLinkEl = document.getElementById("sigPhoneLink");
-    if (phoneLinkEl) phoneLinkEl.setAttribute("href", telHref);
+    if (phoneLinkEl) phoneLinkEl.setAttribute("href", telHrefFromRest(phoneRest));
 
     // Email
-    document.getElementById("sigEmailText").textContent = email;
+    var emailSpan = document.getElementById("sigEmailText");
+    if (emailSpan) emailSpan.textContent = email;
     var emailLinkEl = document.getElementById("sigEmailLink");
     if (emailLinkEl) emailLinkEl.setAttribute("href", "mailto:" + email);
 
     // WhatsApp
     var waDisplay, waHref;
     if (waSame) {
-      waDisplay = phoneDisplay; // show +962 ...
-      waHref = "https://wa.me/" + digitsOnly(phoneDisplay); // href is digits only
+      waDisplay = phoneDisplay;
+      waHref = "https://wa.me/" + digitsOnly(phoneDisplay);
     } else {
       var fullEntered = (waFullInput && waFullInput.trim().length) ? waFullInput.trim() : phoneDisplay;
-      waDisplay = fullEntered; // show exactly what was entered
-      waHref = waHrefFromFull(fullEntered); // digits only for wa.me
+      waDisplay = fullEntered;
+      waHref = waHrefFromFull(fullEntered);
     }
-    document.getElementById("sigWhatsAppText").textContent = "WhatsApp: " + waDisplay;
+    var waTextEl = document.getElementById("sigWhatsAppText");
+    if (waTextEl) waTextEl.textContent = "WhatsApp: " + waDisplay;
     var waLinkEl = document.getElementById("sigWhatsAppLink");
     if (waLinkEl) waLinkEl.setAttribute("href", waHref);
 
@@ -308,7 +307,7 @@
     setDividerHeight();
   }
 
-  // ===== Copy (Outlook-safe normalization + ensure divider height is set) =====
+  // ===== Copy (Outlook-safe normalization) =====
   function copyToClipboard() {
     // Ensure divider height is synced immediately before copying
     setDividerHeight();
@@ -332,9 +331,10 @@
       el.style.msoTableRspace = '0pt';
       if (!el.style.margin) el.style.margin = '0';
       if (!el.style.padding) el.style.padding = '0';
+      if (!el.style.backgroundColor) el.style.backgroundColor = '#ffffff';
     });
 
-    // Convert <div> to <span> within the signature to prevent Outlook paragraph spacing
+    // Convert <div> to <span> to prevent paragraph spacing
     clone.querySelectorAll('div').forEach(function(div) {
       var span = document.createElement("span");
       span.style.cssText = div.style.cssText || '';
@@ -361,6 +361,7 @@
       img.style.margin = '0';
       if (!img.style.padding) img.style.padding = '0';
       img.style.verticalAlign = 'middle';
+      if (!img.style.backgroundColor) img.style.backgroundColor = '#ffffff';
     });
 
     var html = clone.outerHTML;
@@ -369,7 +370,7 @@
       const blobHtml = new Blob([html], { type: "text/html" });
       const blobText = new Blob([clone.textContent || ""], { type: "text/plain" });
       navigator.clipboard.write([new ClipboardItem({ "text/html": blobHtml, "text/plain": blobText })])
-        .then(function () { alert("Signature copied. Divider image included. Paste into your email signature settings."); })
+        .then(function () { alert("Signature copied. Paste into your email signature settings."); })
         .catch(function () { legacyCopyHtml(html); });
     } else {
       legacyCopyHtml(html);
@@ -393,7 +394,7 @@
 
     try {
       document.execCommand("copy");
-      alert("Signature copied. Divider image included. Paste into your email signature settings.");
+      alert("Signature copied. Paste into your email signature settings.");
     } catch (err) {
       alert("Copy failed. Please select the signature manually and copy.");
     } finally {
@@ -405,5 +406,3 @@
 
 </body>
 </html>
-
-

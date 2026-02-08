@@ -10,7 +10,8 @@
   <style type="text/css">
     /* Basic hygiene */
     img { border:0; outline:none; text-decoration:none; display:block; }
-    a   { text-decoration:none; }
+    a   { text-decoration:none; color:#111111; }
+    table { border-collapse:separate; } /* safer in email clients */
 
     /* Mobile (phones ≤480px): stack columns and hide the image divider. 
        Show a CSS border-left on the details column so the red line is always visible. */
@@ -88,23 +89,28 @@
       <!-- Right: Signature Preview -->
       <td class="stack" style="vertical-align:top;">
 
-        <!-- Signature card (rounded; hugs content) -->
+        <!-- Signature (set to hug content) -->
         <table id="signaturewrap" class="sig-table" role="presentation" cellpadding="0" cellspacing="0" border="0"
-          style="width:auto; display:inline-table; background:#ffffff; border:1px solid #d9d9d9; border-radius:10px; overflow:hidden; border-collapse:separate;">
+          style="width:auto; display:inline-table; background:#ffffff; 
+                 /* To remove ALL boxes, delete the next two properties: */
+                 border:1px solid #d9d9d9; border-radius:10px; 
+                 overflow:hidden;">
           <tr>
             
-            <!-- Logo (reduced right padding; top aligned) -->
-            <td class="logo-cell" style="width:150px; padding:4px 4px 0 8px; vertical-align:center; text-align:center; background:#ffffff;">
+            <!-- Logo (tight padding; align top) -->
+            <td class="logo-cell" style="width: 120px; padding:4px 4px 0 8px; vertical-align:center; text-align:center; background:#ffffff;">
               <img src="logo2.png" style="width:100%; max-width:250px; display:block; margin:0 auto; background:#ffffff;" alt="BIA Textiles" />
             </td>
 
             <!-- Divider (IMAGE on desktop; hidden on phones by media query) -->
             <td class="divider-cell" id="redLineCell"
                 style="width:8px; padding:0; margin:0; vertical-align:top; background:#ffffff; line-height:0; font-size:0;">
+              <!-- Use an absolute URL in production (example below). 
+                   src="https://raw.githubusercontent.com/Arfath02/Updated-signature/main/new%20red%20line.png" -->
               <img id="dividerImg"
                    src="new red line.png"
-                   width="24"
-                   style="display:block; border:0; outline:none; margin:0; height: 12px; background:#ffffff;"
+                   width="20"
+                   style="display:block; border:0; outline:none; margin:0; height: auto; background:#ffffff;" 
                    alt="" />
             </td>
 
@@ -220,31 +226,31 @@
   function digitsOnly(str) {
     return (str || "").replace(/[^\d]/g, "");
   }
-
   function formatDisplayPhone(rest) {
     var cleaned = (rest || "").trim()
       .replace(/^\+?\s*962\s*/,"")
       .replace(/\s+/g, " ");
     return "+962 " + cleaned;
   }
-
   function telHrefFromRest(rest) {
     var d = digitsOnly(rest);
     if (d.startsWith("962")) d = d.substring(3);
     return "tel:+962" + d;
   }
-
   function waHrefFromFull(fullNumber) {
     var d = digitsOnly(fullNumber);
     return "https://wa.me/" + d;
   }
 
   // Divider height sync for the IMAGE (desktop) before copy/paste.
-  // Phones will hide the image divider (media query) and use border-left instead.
+  // Phones hide the image divider (media query) and use border-left instead.
   function setDividerHeight() {
     var detailsCell = document.getElementById('detailsCell');
     var dividerImg  = document.getElementById('dividerImg');
     if (!detailsCell || !dividerImg) return;
+
+    // If the divider image is hidden by CSS on phones, skip
+    if (dividerImg.offsetParent === null) return;
 
     var row = detailsCell.closest ? detailsCell.closest('tr') : detailsCell.parentNode;
     var targetH = (row && row.offsetHeight) ? row.offsetHeight : detailsCell.offsetHeight;
@@ -303,7 +309,7 @@
     var waLinkEl = document.getElementById("sigWhatsAppLink");
     if (waLinkEl) waLinkEl.setAttribute("href", waHref);
 
-    // Recompute divider height after changes
+    // Recompute divider height after changes (desktop)
     setDividerHeight();
   }
 
@@ -326,7 +332,7 @@
       el.setAttribute('cellpadding','0');
       el.setAttribute('cellspacing','0');
       el.setAttribute('border','0');
-      el.style.borderCollapse = 'collapse';
+      el.style.borderCollapse = 'separate';
       el.style.msoTableLspace = '0pt';
       el.style.msoTableRspace = '0pt';
       if (!el.style.margin) el.style.margin = '0';
@@ -334,7 +340,7 @@
       if (!el.style.backgroundColor) el.style.backgroundColor = '#ffffff';
     });
 
-    // Convert <div> to <span> to prevent paragraph spacing
+    // Convert <div> to <span> to prevent paragraph spacing in Outlook
     clone.querySelectorAll('div').forEach(function(div) {
       var span = document.createElement("span");
       span.style.cssText = div.style.cssText || '';

@@ -7,24 +7,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <style type="text/css">
-  /* ===== Generator UI (not part of the signature) ===== */
-  body {
-    margin:0;
-    padding:16px;
-    font-family: Arial, Helvetica, sans-serif;
-    background:#ffffff;
-  }
   img { border:0; outline:none; display:block; }
   a { text-decoration:none; color:#111111; }
   table { border-collapse:separate; }
 
-  .card {
-    width:100%;
-    border:1px solid #ededed;
+  body {
+    margin:0;
+    padding:16px;
+    font-family:Arial, Helvetica, sans-serif;
+       border:1px solid #ededed;
     border-radius:10px;
     background:#f6f6f6;
     padding:12px;
   }
+
   .field {
     width:100%;
     padding:8px;
@@ -34,7 +30,9 @@
     box-sizing:border-box;
     font-size:13px;
   }
+
   .row { display:flex; gap:6px; align-items:center; }
+
   .btn {
     border-radius:10px;
     height:32px;
@@ -45,45 +43,22 @@
     font-size:13px;
   }
 
-  /* Page responsive */
-  @media only screen and (max-width: 800px){
-    .stack { display:block !important; width:100% !important; }
-    .left-col { padding-right:0 !important; }
-    .right-col { padding-left:0 !important; margin-top:16px !important; }
-  }
-
-  /* ===== Email-safe responsive tweaks for preview/signature ===== */
   @media only screen and (max-width:600px){
-    .sig-table { width:100% !important; }
-    .sig-logo-cell { width:96px !important; }
-    /* Hide the divider on phones for a clean stack */
-    .sig-divider-cell { display:none !important; }
-    /* Add a left border to details when divider is hidden */
-    .sig-details-cell { border-left:3px solid #d40000 !important; padding-left:10px !important; }
+    .stack { display:block !important; width:100% !important; }
+    .divider-cell { display:none !important; }
+    .details-cell { border-left:3px solid #d40000 !important; padding-left:10px !important; }
   }
-
-  /* Outlook.com font normalization */
-  .sig-link { color:#111111 !important; text-decoration:none !important; }
 </style>
-
-<!-- Outlook (Word) conditional: enforce Arial and tight line-height control -->
-<!--[if mso]>
-  <style type="text/css">
-    .mso-tight { mso-line-height-rule:exactly; }
-    table, td, div, p, a { font-family: Arial, sans-serif !important; }
-  </style>
-<![endif]-->
 </head>
 
 <body>
 
-<!-- ===== Page Layout (Form + Preview) ===== -->
 <table role="presentation" cellspacing="0" cellpadding="0" border="0"
        style="width:100%; max-width:1200px; margin:auto;">
-  <tr class="stack">
+  <tr>
 
-    <!-- LEFT: FORM -->
-    <td class="left-col" valign="top" style="width:34%; padding-right:20px;">
+    <!-- LEFT FORM -->
+    <td valign="top" style="width:34%; padding-right:20px;">
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="card">
         <tr><td>
 
@@ -105,192 +80,136 @@
           </div>
 
           <div style="margin-bottom:8px;">
-            <input id="emailInput" class="field" type="text" placeholder="Email ID (e.g., name@biatextiles.com)" />
+            <input id="emailInput" class="field" type="text" placeholder="Email ID" />
           </div>
 
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <button type="button" class="btn" onclick="fillForm()">Generate</button>
-            <button type="button" class="btn" onclick="copyToClipboard()">Copy</button>
-          </div>
-
-          <div style="font-size:12px; color:#666; margin-top:10px;">
-            After copying, paste into your email signature settings (Outlook, Gmail, etc.).
-          </div>
+          <button type="button" class="btn" onclick="fillForm()">Generate</button>
+          <button type="button" class="btn" onclick="copyToClipboard()">Copy</button>
 
         </td></tr>
       </table>
     </td>
 
-    <!-- RIGHT: SIGNATURE PREVIEW -->
-    <td class="right-col" valign="top" style="width:66%; padding-left:20px;">
-
-      <!-- ===== BEGIN: Signature block that gets copied ===== -->
+    <!-- RIGHT SIGNATURE PREVIEW -->
+    <td valign="top" style="width:66%; padding-left:20px;">
       <table id="signaturewrap" class="sig-table" role="presentation"
              width="480" cellpadding="0" cellspacing="0" border="0"
-             style="background:#ffffff; width:480px;">
+             style="background:#ffffff;">
+
         <tr>
 
           <!-- LOGO -->
-          <td class="sig-logo-cell mso-tight" valign="middle" width="120"
-              style="padding:0 4px 0 0; width:120px;">
-            <!-- Replace with your hosted logo URL -->
-            <img src="logo2.png" width="120" height="120" alt="BIA Textiles" style="width:120px; height:120px;" />
+          <td valign="middle" width="120" style="padding:0 4px 0 0;">
+            <img src="logo2.png" width="120" />
           </td>
 
-          <!-- RED DIVIDER (fixed-height, Outlook-safe) -->
-          <td class="sig-divider-cell mso-tight" valign="top" width="14"
-              style="padding:0 6px 0 0; width:14px; font-size:0; line-height:0;">
-            <!-- Inner table locks the height to match logo height -->
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" height="120" style="height:120px;">
-              <tr>
-                <td width="14" height="120"
-                    style="background:#d40000; width:14px; height:120px; font-size:0; line-height:0;">
-                  &nbsp;
-                </td>
-              </tr>
-            </table>
+          <!-- RED LINE -->
+          <td valign="top" width="14" class="divider-cell" style="padding:0 6px 0 0;">
+            <img src="new red line.png" width="14" />
           </td>
 
           <!-- DETAILS -->
-          <td id="detailsCell" class="sig-details-cell mso-tight" valign="top" style="padding:0;">
+          <td valign="top" id="detailsCell" class="details-cell" style="padding:0;">
 
-            <!-- NAME -->
-            <div style="font-size:16px; font-weight:900; margin:0; line-height:18px;">
+            <div style="font-size:16px; font-weight:900; margin:0;">
               <span id="sigName">Your Name</span>
             </div>
 
-            <!-- DESIGNATION -->
-            <div style="font-size:13px; font-weight:600; margin:2px 0 6px 0; line-height:16px;">
+            <div style="font-size:13px; font-weight:600; margin:2px 0 6px 0;">
               <span id="sigDesignation">Designation</span>
             </div>
 
-            <!-- CONTACTS -->
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+
               <tr>
-                <td width="20" style="padding:0 3px 2px 0;">
-                  <!-- Replace with hosted icon URL if you have -->
-                  <img src="call.png" width="16" height="16" alt="Phone" style="width:16px; height:16px;" />
-                </td>
+                <td width="20" style="padding:0 3px 2px 0;"><img src="call.png" width="16"></td>
                 <td style="font-size:13px; line-height:15px;">
                   <span id="sigPhone">+962 776655443</span>
                 </td>
               </tr>
 
               <tr>
-                <td width="20" style="padding:0 3px 2px 0;">
-                  <img src="Mail.png" width="16" height="16" alt="Email" style="width:16px; height:16px;" />
-                </td>
+                <td width="20" style="padding:0 3px 2px 0;"><img src="Mail.png" width="16"></td>
                 <td style="font-size:13px; line-height:15px;">
-                  <a id="sigEmailText" class="sig-link" href="mailto:email@domain.com" style="color:#111111; text-decoration:none;">
+                  <a id="sigEmailText"
+                     href="mailto:email@domain.com"
+                     style="color:#111111; text-decoration:none;">
                     email@domain.com
                   </a>
                 </td>
               </tr>
 
               <tr>
-                <td width="20" style="padding:0 3px 2px 0;">
-                  <img src="website.png" width="16" height="16" alt="Website" style="width:16px; height:16px;" />
-                </td>
+                <td width="20" style="padding:0 3px 2px 0;"><img src="website.png" width="16"></td>
                 <td style="font-size:13px; line-height:15px;">
-                  <a href="https://biatextiles.com" target="_blank" rel="noopener" class="sig-link" style="color:#111111; text-decoration:none;">
-                    biatextiles.com
-                  </a>
+                  biatextiles.com
                 </td>
               </tr>
 
               <tr>
-                <td width="20" style="padding:0 3px 0 0;">
-                  <img src="location.png" width="16" height="16" alt="Location" style="width:16px; height:16px;" />
-                </td>
+                <td width="20" style="padding:0 3px 0 0;"><img src="location.png" width="16"></td>
                 <td style="font-size:13px; line-height:15px;">
                   Land No 405, Plot 8 Zubaidi, King Hussein<br />
                   Bin Talal Development Area, Al‑Mafraq, Jordan
                 </td>
               </tr>
+
             </table>
 
           </td>
+
         </tr>
       </table>
-      <!-- ===== END: Signature block that gets copied ===== -->
-
-      <div style="font-size:12px; color:#666; margin-top:10px;">
-        Preview above reflects what will be copied into your email client.
-      </div>
-
     </td>
+
   </tr>
 </table>
 
 <script>
-/* ===== Config: set this to your logo/divider height (px) ===== */
-const DIVIDER_HEIGHT = 120; // keep same as logo height for a level top/bottom
 
-/* ---------- Helpers ---------- */
+// Format phone for display
 function formatDisplayPhone(rest){
   rest = (rest||"").trim().replace(/^\+?\s*962\s*/,"");
-  return rest ? ("+962 " + rest) : "";
+  return "+962 " + rest;
 }
 
-/* ---------- Fill Preview ---------- */
 function fillForm(){
-  const name = (document.getElementById("nameInput").value || "").trim() || "Your Name";
-  const des  = (document.getElementById("designationInput").value || "").trim() || "Designation";
-  const rest = (document.getElementById("phoneRestInput").value || "").trim();
-  const email= (document.getElementById("emailInput").value || "").trim() || "email@domain.com";
+  const name = document.getElementById("nameInput").value || "Your Name";
+  const des  = document.getElementById("designationInput").value || "Designation";
+  const rest = document.getElementById("phoneRestInput").value || "";
+  const email = (document.getElementById("emailInput").value || "email@domain.com").trim();
 
-  const phoneDisplay = formatDisplayPhone(rest) || "+962 776655443";
+  const phoneDisplay = formatDisplayPhone(rest);
 
   document.getElementById("sigName").textContent  = name;
   document.getElementById("sigDesignation").textContent = des;
   document.getElementById("sigPhone").textContent = phoneDisplay;
 
+  // Email link
   const emailLink = document.getElementById("sigEmailText");
   emailLink.textContent = email;
   emailLink.href = "mailto:" + email;
-
-  // Ensure divider inner table matches configured height
-  var dividerTables = document.querySelectorAll('#signaturewrap .sig-divider-cell table[height]');
-  dividerTables.forEach(function(tbl){
-    tbl.setAttribute('height', DIVIDER_HEIGHT);
-    tbl.style.height = DIVIDER_HEIGHT + 'px';
-    const cell = tbl.querySelector('td');
-    if (cell){
-      cell.setAttribute('height', DIVIDER_HEIGHT);
-      cell.style.height = DIVIDER_HEIGHT + 'px';
-    }
-  });
-
-  // Ensure logo height matches
-  var logo = document.querySelector('#signaturewrap .sig-logo-cell img');
-  if (logo){
-    logo.setAttribute('height', DIVIDER_HEIGHT);
-    logo.style.height = DIVIDER_HEIGHT + 'px';
-  }
 }
 
-/* ---------- Copy Signature HTML ---------- */
+// Copy HTML
 function copyToClipboard(){
   const node = document.getElementById("signaturewrap");
   const html = node.outerHTML;
 
-  if (navigator.clipboard && window.ClipboardItem) {
+  if (navigator.clipboard && window.ClipboardItem){
     const blobHtml = new Blob([html], {type:"text/html"});
     navigator.clipboard.write([new ClipboardItem({ "text/html": blobHtml })])
       .then(()=> alert("Signature Copied!"))
-      .catch(()=> fallbackCopy(html));
+      .catch(()=> alert("Copy failed."));
   } else {
-    fallbackCopy(html);
+    const ta = document.createElement("textarea");
+    ta.value = html;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); alert("Signature Copied!"); }
+    catch(e){ alert("Copy failed."); }
+    document.body.removeChild(ta);
   }
-}
-function fallbackCopy(html){
-  const ta = document.createElement("textarea");
-  ta.value = html;
-  document.body.appendChild(ta);
-  ta.select();
-  try { document.execCommand("copy"); alert("Signature Copied!"); }
-  catch(e){ alert("Copy failed."); }
-  document.body.removeChild(ta);
 }
 </script>
 
